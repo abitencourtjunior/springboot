@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact } from '../models/contact';
+import { Api } from '../service/api.service';
+import { Contact } from '../model/contact';
 
 @Component({
   selector: 'app-contact',
@@ -8,16 +9,24 @@ import { Contact } from '../models/contact';
 })
 export class ContactComponent implements OnInit {
 
-  contact :  Contact = {
-    id: 1,
-    nome: 'teste',
-    email: 'a@a.com.br',
-    telefone:'1234'
-  };
+  displayedColumns: string[] = [ 'id', 'nome', 'email', 'telefone'];
+  dataSource: Contact[];
+  isLoadingResults = false;
 
-  constructor() { }
+
+  // tslint:disable-next-line:variable-name
+  constructor(private _api: Api) { }
 
   ngOnInit() {
+    this._api.getcontacts()
+      .subscribe(resp => {
+        this.dataSource = resp;
+        console.log(this.dataSource);
+        this.isLoadingResults = false;
+      }, err => {
+        console.log(err);
+        this.isLoadingResults = false;
+      });
   }
 
 }
