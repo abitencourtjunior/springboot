@@ -17,7 +17,7 @@ export class Api {
 
   constructor(private http: HttpClient) { }
 
-  getcontacts(): Observable<Contact[]> {
+  getContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>(apiUrl)
     .pipe(
       tap(contacts => console.log('Leu os Contatos')),
@@ -25,7 +25,7 @@ export class Api {
     );
   }
 
-  getcontact(id: number): Observable<Contact> {
+  getContact(id: number): Observable<Contact> {
     const url = `${apiUrl}/${id}`;
     return this.http.get<Contact>(url).pipe(
       tap(_ => console.log(`leu o produto id=${id}`)),
@@ -34,7 +34,7 @@ export class Api {
   }
 
 
-  addProduto(contact): Observable<Contact> {
+  addContact(contact): Observable<Contact> {
     return this.http.post<Contact>(apiUrl, contact, httpOptions).pipe(
       // tslint:disable-next-line:no-shadowed-variable
       tap((contact: Contact) => console.log(`Adicionou o contato com w/ id=${contact.id}`)),
@@ -42,7 +42,7 @@ export class Api {
     );
   }
 
-  updatecontact(id, contact): Observable<any> {
+  updateContact(id, contact): Observable<any> {
   const url = `${apiUrl}/${id}`;
   return this.http.put(url, contact, httpOptions).pipe(
     tap(_ => console.log(`Atualiza o contato com id=${id}`)),
@@ -50,7 +50,7 @@ export class Api {
     );
   }
 
-  deletecontact(id): Observable<Contact> {
+  deleteContact(id): Observable<Contact> {
     const url = `${apiUrl}/delete/${id}`;
 
     return this.http.delete<Contact>(url, httpOptions).pipe(

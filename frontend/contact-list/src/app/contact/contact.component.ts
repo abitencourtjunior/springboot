@@ -13,12 +13,10 @@ export class ContactComponent implements OnInit {
   dataSource: Contact[];
   isLoadingResults = false;
 
-
-  // tslint:disable-next-line:variable-name
   constructor(private _api: Api) { }
 
   ngOnInit() {
-    this._api.getcontacts()
+    this._api.getContacts()
       .subscribe(resp => {
         this.dataSource = resp;
         console.log(this.dataSource);
